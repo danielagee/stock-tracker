@@ -9,7 +9,7 @@ from plotly.subplots import make_subplots
 import pandas as pd
 
 # Read the CSV file containing the stock ticker data.
-df_portfolio = pd.read_csv(f'c:\\python\\stocks\\portfolio.csv')
+df_portfolio = pd.read_csv(f'c:\\python\\stocks\\portfolio input\\portfolio.csv')
 
 stock = 'GOOGL'  # Input the ticker for the stock you want to view.
 ticker = yf.Ticker(stock)  # Gets the correct stock ticker data.
@@ -37,6 +37,18 @@ df_merged = df_merged.sort_values(by='Date')
 # Reset the index of the dataframe without adding a column
 # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.reset_index.html
 df_merged = df_merged.reset_index(drop=True)
+
+# convert NaN to value from row above
+df_merged.Qty.fillna(method='pad', inplace=True)
+
+# convert NaN to 0
+df_merged.Qty.fillna(0, inplace=True)
+
+# Create a new column and get close price x quantity owned.
+df_merged['Value'] = df_merged.Close * df_merged.Qty
+
+# Drop all rows without a stock price to give continuous data
+df_merged.dropna(inplace=True)
 
 df_merged.to_csv(f'c:\\python\\stocks\\merged.csv')
 
