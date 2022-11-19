@@ -1,4 +1,4 @@
-from analysis.plots import PortfolioPlot
+from analysis.plots_multi_stock import PortfolioPlot
 
 
 def run():
