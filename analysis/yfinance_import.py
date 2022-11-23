@@ -17,13 +17,13 @@ if c.refresh_tickers == "Yes":
         time.sleep(1)
 
     df_sp500 = pdr.get_data_yahoo('^GSPC', start_date, end_date)
-    df_sp500.to_csv(f'{c.output_path}df_sp500.csv')
+    df_sp500.to_csv(f'{c.output_path}sp500.csv')
     print(f'Ticker: ^GSPC')
 
     df_dji = pdr.get_data_yahoo('^DJI', start_date, end_date)
-    df_sp500.to_csv(f'{c.output_path}df_dji.csv')
+    df_sp500.to_csv(f'{c.output_path}dji.csv')
     print(f'Ticker: ^DJI')
 
     df_nasdaq = pdr.get_data_yahoo('^IXIC', start_date, end_date)
-    df_sp500.to_csv(f'{c.output_path}df_nasdaq.csv')
+    df_sp500.to_csv(f'{c.output_path}nasdaq.csv')
     print(f'Ticker: ^IXIC')
