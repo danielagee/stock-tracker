@@ -2,6 +2,7 @@
 
 import pandas as pd
 import analysis.constants as c
+import datetime
 
 # Read the CSV file containing the stock ticker data.
 df_portfolio = c.df_portfolio
@@ -19,6 +20,7 @@ df_portfolio[f'Trade Cost'] = df_portfolio[f'Traded'] * df_portfolio[f'Price Pai
 tickers = df_portfolio.Ticker.tolist()
 # Remove duplicates and sort alphabetically
 tickers = sorted([*set(tickers)])
+start_date = df_portfolio['Date'].min() - datetime.timedelta(days=c.start_delay)
 
 # print(df_portfolio)
 # print(tickers)

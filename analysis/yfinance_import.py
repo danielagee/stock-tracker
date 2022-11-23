@@ -5,7 +5,7 @@ from pandas_datareader import data as pdr
 import analysis.constants as c
 import analysis.portfolio as portfolio
 
-start_date = c.start_date
+start_date = portfolio.start_date
 end_date = c.end_date
 
 if c.refresh_tickers == "Yes":

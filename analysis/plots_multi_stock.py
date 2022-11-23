@@ -30,9 +30,17 @@ class PortfolioPlot:
         name="Total Portfolio Value"),
         row=1, col=1)
 
+    # Line plot for total dividends.
+    fig.add_trace(go.Scatter(
+        x=data.df_merged_value['Date'],
+        y=data.df_merged_value['Portfolio Div'],
+        line=dict(color='#228C22'),
+        name="Total Portfolio Dividends"),
+        row=1, col=1)
+
     # Sub plot for returns
 
-    # Returns plot positive
+    # Returns shaded plot
     fig.add_trace(go.Scatter(
         x=data.df_merged_value['Date'],
         y=np.maximum(0, data.df_merged_value['Returns %']*100),
