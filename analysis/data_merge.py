@@ -2,8 +2,8 @@
 import pandas as pd
 import analysis.portfolio as portfolio
 import analysis.constants as c
-import yfinance_import
-import yfinance_dividends
+import analysis.yfinance_import
+import analysis.yfinance_dividends
 
 df_merged_value = pd.DataFrame([[portfolio.start_date, 0, 0, 0, 0, 0]], columns=['Date', 'Total Value', 'Total Invested', 'Returns', 'Returns %', 'Portfolio Div'])
 
@@ -30,6 +30,9 @@ for ticker in portfolio.tickers:
     df_merged = pd.merge(df_ticker, df_shares, how='outer')
 
     # Rename columns to differentiate stocks
+    df_merged.rename(columns={'Open': f'Open-{ticker}'}, inplace=True)
+    df_merged.rename(columns={'High': f'High-{ticker}'}, inplace=True)
+    df_merged.rename(columns={'Low': f'Low-{ticker}'}, inplace=True)
     df_merged.rename(columns={'Close': f'Close-{ticker}'}, inplace=True)
     df_merged.rename(columns={'Price Paid': f'Price-{ticker}'}, inplace=True)
     df_merged.rename(columns={'Traded': f'Traded-{ticker}'}, inplace=True)
@@ -68,6 +71,10 @@ for ticker in portfolio.tickers:
     # Create a new column and get close price x quantity owned.
     df_merged[f'Value-{ticker}'] = df_merged[f'Close-{ticker}'] * df_merged[f'Shares Owned-{ticker}']
 
+    # Create a new column for returns.
+    df_merged[f'Returns-{ticker}'] = df_merged[f'Close-{ticker}'] * df_merged[f'Shares Owned-{ticker}']
+    df_merged[f'Returns %-{ticker}'] = df_merged[f'Value-{ticker}'] - df_merged[f'Total Invested-{ticker}']
+
     # Calculate value of dividends paid.
     df_merged[f'Div Paid-{ticker}'] = df_merged[f'Div-{ticker}'] * df_merged[f'Shares Owned-{ticker}']
 
@@ -81,7 +88,7 @@ for ticker in portfolio.tickers:
     # Reset the index of the dataframe without adding a column
     df_merged = df_merged.reset_index(drop=True)
 
-    df_merged = df_merged.drop(df_merged.columns[[1, 2, 3, 5, 6, 7, 8, 9]], axis=1)
+    df_merged = df_merged.drop(df_merged.columns[[5, 6, 7, 8, 9]], axis=1)
 
     df_merged_value = pd.merge(df_merged_value, df_merged, how='outer')
     df_merged_value.drop_duplicates(inplace=True)
@@ -101,4 +108,4 @@ df_merged_value['Returns %'] = df_merged_value['Returns'] / df_merged_value['Tot
 div_tickers = ['Total Div-' + sub for sub in portfolio.tickers]
 df_merged_value['Portfolio Div'] = df_merged_value[div_tickers].sum(axis=1)
 
-df_merged_value.to_csv(f'c:\\python\\stocks\\3merged_value.csv')
+df_merged_value.to_csv(f'{c.root_path}3merged_value.csv')

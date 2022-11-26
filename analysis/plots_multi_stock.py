@@ -1,4 +1,4 @@
-class PortfolioPlot:
+class PortfolioCumulativePlot:
     import plotly.graph_objects as go
     from plotly.subplots import make_subplots
     import analysis.data_merge as data
