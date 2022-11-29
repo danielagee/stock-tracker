@@ -72,8 +72,8 @@ for ticker in portfolio.tickers:
     df_merged[f'Value-{ticker}'] = df_merged[f'Close-{ticker}'] * df_merged[f'Shares Owned-{ticker}']
 
     # Create a new column for returns.
-    df_merged[f'Returns-{ticker}'] = df_merged[f'Close-{ticker}'] * df_merged[f'Shares Owned-{ticker}']
-    df_merged[f'Returns %-{ticker}'] = df_merged[f'Value-{ticker}'] - df_merged[f'Total Invested-{ticker}']
+    df_merged[f'Returns-{ticker}'] = df_merged[f'Value-{ticker}'] - df_merged[f'Total Invested-{ticker}']
+    df_merged[f'Returns %-{ticker}'] = df_merged[f'Returns-{ticker}'] / df_merged[f'Total Invested-{ticker}'] * 100
 
     # Calculate value of dividends paid.
     df_merged[f'Div Paid-{ticker}'] = df_merged[f'Div-{ticker}'] * df_merged[f'Shares Owned-{ticker}']
