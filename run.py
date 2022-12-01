@@ -1,6 +1,7 @@
-# Fix code so that if refresh of stocks is on, it only pulls it once. Currently scrapes both in single and multi plot.
 # Enable switch on/off for single and multi-plot
-# Relative value vs S&P 500 rather than absolute
+# Fix value of 100% loss on sell
+# Fix relative S&P500 performance calculation.
+# Add dividends and sales as returns rather than invested. Invested dividends are not double counted.
 
 from analysis.plots_multi_stock import PortfolioCumulativePlot
 from analysis.plots_single_stock import PortfolioSinglePlots

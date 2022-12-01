@@ -1,7 +1,5 @@
-
 import time
 from pandas_datareader import data as pdr
-
 import analysis.constants as c
 import analysis.portfolio as portfolio
 

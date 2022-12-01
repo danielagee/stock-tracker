@@ -1,7 +1,5 @@
 import yfinance as yf
-
 import time
-
 import analysis.constants as c
 import analysis.portfolio as portfolio
 
@@ -14,5 +12,5 @@ if c.refresh_dividends == "Yes":
         div = tic.dividends
 
         div.to_csv(f'{c.output_path}div-{ticker}.csv')
-        print(f'Ticker: {ticker}')
+        print(f'Ticker Dividends: {ticker}')
         time.sleep(1)

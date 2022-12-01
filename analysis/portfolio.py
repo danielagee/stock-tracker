@@ -1,5 +1,3 @@
-# Add dividends and sales as returns rather than invested. Invested dividends are not double counted.
-
 import pandas as pd
 import analysis.constants as c
 import datetime

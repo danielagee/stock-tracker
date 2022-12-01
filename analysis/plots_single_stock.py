@@ -12,7 +12,9 @@ class PortfolioSinglePlots:
         # Define the 21 and 200 day moving average calculations from closing price
         df_merged['21dma'] = df_merged[f'Close-{ticker}'].rolling(window=21).mean()
         df_merged['200dma'] = df_merged[f'Close-{ticker}'].rolling(window=200).mean()
-        df_merged['sp500_rel'] = df_merged[f'Close-{ticker}'] / df_sp500['Close']
+        # df_merged['sp500_rel'] = df_merged[f'Close-{ticker}'] / df_sp500['Close']
+        df_merged['sp500_rel_%'] = (df_merged[f'Close-{ticker}'] / df_merged[f'Close-{ticker}'].iat[0]) / \
+                                   (df_sp500['Close'] / df_sp500['Close'].iat[0])
 
         # Create dual plot figure with secondary y-axis
         fig = make_subplots(rows=2, cols=1, row_heights=[0.8, 0.2],
@@ -51,10 +53,18 @@ class PortfolioSinglePlots:
                        name="200-Day-MA"),
             secondary_y=False, row=1, col=1)
 
-        # Add trace for relative valuation compared to S&P500 index.
+        """# Add trace for relative valuation compared to S&P500 index.
         fig.add_trace(
             go.Scatter(x=df_merged['Date'],
                        y=df_merged['sp500_rel'],
+                       line=dict(color='#ADD8E6'),
+                       name="Rel-Value-SP500"),
+            secondary_y=True, row=1, col=1)"""
+
+        # Add trace for relative % valuation compared to S&P500 index.
+        fig.add_trace(
+            go.Scatter(x=df_merged['Date'],
+                       y=df_merged['sp500_rel_%'],
                        line=dict(color='#ADD8E6'),
                        name="Rel-Value-SP500"),
             secondary_y=True, row=1, col=1)
@@ -109,15 +119,3 @@ class PortfolioSinglePlots:
             secondary_y=False, row=2, col=1)
 
         fig.show()
-    """ticker = 'PG'
-    print(df_merged[f'Returns %-{ticker}'].where(df_merged[f'Returns %-{ticker}'] > 0, 0))
-    print(df_merged[f'Returns %-{ticker}'].mask(df_merged[f'Returns %-{ticker}'] > 0, 0))
-    df_merged[f'Returns %-Gains-{ticker}'] = df_merged[f'Returns %-{ticker}'].where(df_merged[f'Returns %-{ticker}'] > 0, 0)
-    df_merged[f'Returns %-Losses-{ticker}'] = df_merged[f'Returns %-{ticker}'].mask(df_merged[f'Returns %-{ticker}'] > 0, 0)
-    print(df_merged)
-
-    fig = go.Figure(go.Scatter(x=df_merged['Date'], y=df_merged[f'Returns %-Gains-{ticker}'], mode='none', fill='tozeroy', fillcolor='green'))
-    fig.add_trace(go.Scatter(x=df_merged['Date'], y=df_merged[f'Returns %-Losses-{ticker}'], mode='none', fill='tozeroy', fillcolor='red'))
-
-    fig.show()
-    """

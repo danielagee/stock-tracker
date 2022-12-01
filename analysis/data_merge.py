@@ -1,4 +1,3 @@
-
 import pandas as pd
 import analysis.portfolio as portfolio
 import analysis.constants as c
@@ -104,7 +103,7 @@ invested_tickers = ['Total Invested-' + sub for sub in portfolio.tickers]
 df_merged_value['Total Value'] = df_merged_value[value_tickers].sum(axis=1)
 df_merged_value['Total Invested'] = df_merged_value[invested_tickers].sum(axis=1)
 df_merged_value['Returns'] = df_merged_value['Total Value'] - df_merged_value['Total Invested']
-df_merged_value['Returns %'] = df_merged_value['Returns'] / df_merged_value['Total Invested']
+df_merged_value['Returns %'] = df_merged_value['Returns'] / df_merged_value['Total Invested']*100
 div_tickers = ['Total Div-' + sub for sub in portfolio.tickers]
 df_merged_value['Portfolio Div'] = df_merged_value[div_tickers].sum(axis=1)
 
