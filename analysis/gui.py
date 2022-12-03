@@ -58,7 +58,7 @@ def execute():
     df_inputs.iat[7, 1] = individual_plot
 
     df_inputs.to_csv(f'C:\\Python\\stocks\\Portfolio Input\\Inputs.csv')
-    print('Inputs updated.')
+    root.destroy()
     return
 
 
