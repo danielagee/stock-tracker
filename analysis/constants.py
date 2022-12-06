@@ -17,5 +17,3 @@ refresh_dividends = df_inputs.iloc[5, 1]
 portfolio_plot = df_inputs.iloc[6, 1]
 individual_plot = df_inputs.iloc[7, 1]
 df_portfolio = pd.read_csv(f'{portfolio_path}{portfolio_file}')
-
-# df_inputs.to_csv(f'C:\\Python\\stocks\\Portfolio Input\\Inputs.csv')
