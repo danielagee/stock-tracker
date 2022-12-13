@@ -8,10 +8,14 @@ class PortfolioSinglePlots:
     df_merged = pd.read_csv(f'{c.root_path}3merged_value.csv')
     df_sp500 = pd.read_csv(f'{c.output_path}sp500.csv')
 
+    def moving_average(df_merged, ticker, window):
+        # Calculate the moving average from closing price and a defined duration
+        df_merged[f'{window}dma'] = df_merged[f'Close-{ticker}'].rolling(window=window).mean()
+
     for ticker in portfolio.tickers:
-        # Define the 21 and 200 day moving average calculations from closing price
-        df_merged['21dma'] = df_merged[f'Close-{ticker}'].rolling(window=21).mean()
-        df_merged['200dma'] = df_merged[f'Close-{ticker}'].rolling(window=200).mean()
+        moving_average(df_merged, ticker, 21)
+        moving_average(df_merged, ticker, 200)
+
         # df_merged['sp500_rel'] = df_merged[f'Close-{ticker}'] / df_sp500['Close']
         df_merged['sp500_rel_%'] = (df_merged[f'Close-{ticker}'] / df_merged[f'Close-{ticker}'].iat[0]) / \
                                    (df_sp500['Close'] / df_sp500['Close'].iat[0])

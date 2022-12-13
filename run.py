@@ -5,7 +5,6 @@
 # Clean up constants.py code
 # Stop running on import. Make each file a def main() with if __name__ == "__main__": n\ main()
 # Learn Lambda
-# Ribbon plot for portfolio value with each stock listed
 # Plot of stock value (owned * price) on lower graph in individual plot window
 
 from analysis.plots_multi_stock import PortfolioCumulativePlot
